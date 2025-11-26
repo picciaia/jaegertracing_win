@@ -1,0 +1,41 @@
+# define a container image based on the official Microsoft Server Core image as base image
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2025
+
+# copy opensearch folder
+# download opensearch from # https://artifacts.opensearch.org/releases/bundle/opensearch/3.3.2/opensearch-3.3.2-windows-x64.zip
+RUN mkdir c:\opensearch
+COPY setup/opensearch-3.3.2 C:/opensearch
+RUN mkdir C:\opensearch\tmp
+
+# set environment variables (must be before install_demo_configuration)
+ENV cluster.name=opensearch-cluster
+ENV node.name=opensearch-node1
+ENV discovery.seed_hosts=opensearch-node1,opensearch-node2
+ENV cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
+ENV bootstrap.memory_lock=true
+ENV OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m"
+ENV OPENSEARCH_INITIAL_ADMIN_PASSWORD=OpenSearch123!
+ENV OPENSEARCH_TMPDIR="C:\opensearch\tmp"
+ENV OPENSEARCH_DISABLE_IPV6=true
+
+# run opensearch security demo configuration to setup SSL certificates
+RUN C:\opensearch\plugins\opensearch-security\tools\install_demo_configuration.bat -y -i -s
+
+# configure opensearch to listen on all network interfaces
+RUN echo network.host: 0.0.0.0 >> C:\opensearch\config\opensearch.yml
+RUN echo discovery.type: single-node >> C:\opensearch\config\opensearch.yml
+
+
+# expose opensearch ports
+EXPOSE 5601 9200 9300
+
+# set working directory
+WORKDIR "C:\opensearch"
+
+# start OpenSearch in foreground
+CMD ["C:\\opensearch\\bin\\opensearch.bat"]
+
+
+
+
+

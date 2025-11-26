@@ -12,3 +12,21 @@ services:
       - "14268:14268"
       - "14250:14250"
       - "9411:9411"
+    networks:
+      - jaeger-network
+  
+  opensearch_win:
+    build:
+      context: .
+      dockerfile: dockerfile-opensearch
+    container_name: opensearch_win
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+      - "5601:5601"
+    networks:
+      - jaeger-network
+
+networks:
+  jaeger-network:
+

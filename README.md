@@ -73,6 +73,15 @@ Download the Jaeger binary for Windows:
 
 Extract `jaeger.exe` and place it in the `setup/` directory.
 
+### 1b. Download OpenSearch binary for windows
+
+Download the OpenSearch binary for Windows:
+
+```powershell
+# Download official OpenSearch binary
+# https://artifacts.opensearch.org/releases/bundle/opensearch/3.3.2/opensearch-3.3.2-windows-x64.zip
+```
+
 ### 2. Configuration
 
 The container uses `setup/all-in-one.yaml` for Jaeger configuration. You can customize this file to adjust Jaeger's behavior, storage options, and other settings.
