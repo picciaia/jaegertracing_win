@@ -1,0 +1,14 @@
+services:
+  jaegertracing_win:
+    build:
+      context: .
+      dockerfile: dockerfile-nano
+    container_name: jaegertracing_win
+    ports:
+      - "6831:6831"
+      - "6832:6832"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "14250:14250"
+      - "9411:9411"
