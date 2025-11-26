@@ -76,10 +76,11 @@ The docker-compose configuration uses the nano version for both containers by de
 ├── dockerfile-opensearch        # OpenSearch Dockerfile using Nano Server
 ├── README.md                    # This file
 └── setup/
-    ├── jaeger.exe              # Jaeger executable for Windows
-    ├── all-in-one.yaml         # Jaeger configuration file
-    ├── config.yaml             # Additional Jaeger configuration (if needed)
-    └── opensearch-3.3.2/       # OpenSearch installation directory
+    ├── jaeger/                 # Jaeger installation directory
+    │   ├── jaeger.exe         # Jaeger executable for Windows
+    │   ├── all-in-one.yaml    # Jaeger configuration file
+    │   └── config.yaml        # Additional Jaeger configuration
+    └── opensearch/             # OpenSearch installation directory
 ```
 
 ## Prerequisites
@@ -100,7 +101,7 @@ Download the Jaeger binary for Windows:
 # https://download.jaegertracing.io/v1.75.0/jaeger-2.12.0-windows-amd64.tar.gz
 ```
 
-Extract `jaeger.exe` and place it in the `setup/` directory.
+Extract `jaeger.exe` and the configuration files, then place them in the `setup/jaeger/` directory.
 
 ### 2. Download OpenSearch
 
@@ -111,13 +112,13 @@ Download the OpenSearch binary for Windows:
 # https://artifacts.opensearch.org/releases/bundle/opensearch/3.3.2/opensearch-3.3.2-windows-x64.zip
 ```
 
-Extract the contents and place the `opensearch-3.3.2` folder in the `setup/` directory.
+Extract the contents and rename the folder to `opensearch`, then place it in the `setup/` directory.
 
 ### 3. Configuration
 
 #### Jaeger Configuration
 
-The Jaeger container uses `setup/all-in-one.yaml` for configuration. You can customize this file to adjust Jaeger's behavior, storage options, and other settings.
+The Jaeger container uses `setup/jaeger/all-in-one.yaml` for configuration. You can customize this file to adjust Jaeger's behavior, storage options, and other settings.
 
 #### OpenSearch Configuration
 
@@ -274,8 +275,8 @@ Invoke-RestMethod -Uri 'https://localhost:9200/my-index/_search' -Method Post -B
 
 1. Ensure Docker is set to Windows containers mode
 2. Verify required files exist:
-   - `setup/jaeger.exe` (Jaeger)
-   - `setup/opensearch-3.3.2/` (OpenSearch)
+   - `setup/jaeger/jaeger.exe` (Jaeger)
+   - `setup/opensearch/` (OpenSearch)
 3. Check logs: `docker-compose logs` or `docker logs <container_name>`
 
 ### Cannot access Jaeger UI

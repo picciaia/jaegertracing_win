@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/windows/nanoserver:ltsc2025
 # copy opensearch folder
 # download opensearch from # https://artifacts.opensearch.org/releases/bundle/opensearch/3.3.2/opensearch-3.3.2-windows-x64.zip
 RUN mkdir c:\opensearch
-COPY setup/opensearch-3.3.2 C:/opensearch
+COPY setup/opensearch C:/opensearch
 RUN mkdir C:\opensearch\tmp
 
 # set environment variables (must be before install_demo_configuration)
