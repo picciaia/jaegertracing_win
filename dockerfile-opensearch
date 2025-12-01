@@ -24,6 +24,7 @@ RUN C:\opensearch\plugins\opensearch-security\tools\install_demo_configuration.b
 # configure opensearch to listen on all network interfaces
 RUN echo network.host: 0.0.0.0 >> C:\opensearch\config\opensearch.yml
 RUN echo discovery.type: single-node >> C:\opensearch\config\opensearch.yml
+RUN echo plugins.security.disabled: true >> C:\opensearch\config\opensearch.yml
 
 
 # expose opensearch ports

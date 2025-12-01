@@ -4,6 +4,10 @@ services:
       context: .
       dockerfile: dockerfile-nano
     container_name: jaegertracing_win
+    environment:
+       - ES_USERNAME=admin
+       - ES_PASSWORD=OpenSearch123!
+       - ES_TLS_SKIP_HOST_VERIFY=true
     ports:
       - "6831:6831"
       - "6832:6832"
@@ -14,6 +18,9 @@ services:
       - "9411:9411"
     networks:
       - jaeger-network
+    depends_on:
+      opensearch_win:
+        condition: service_healthy
   
   opensearch_win:
     build:
@@ -26,6 +33,12 @@ services:
       - "5601:5601"
     networks:
       - jaeger-network
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-u", "admin:OpenSearch123!", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 90s
 
 networks:
   jaeger-network:

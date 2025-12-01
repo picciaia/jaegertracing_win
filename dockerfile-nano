@@ -7,7 +7,7 @@ RUN mkdir c:\Jaeger
 COPY setup/jaeger/jaeger.exe C:/Jaeger/jaeger.exe
 
 # copy jaeger configuration file
-COPY setup/jaeger/all-in-one.yaml C:/Jaeger/config.yaml
+COPY setup/jaeger/all-in-one-opensearch.yaml C:/Jaeger/config.yaml
 
 # expose jaeger ports
 EXPOSE 6831 6832 5778 16686 14268 14250 9411
